@@ -61,7 +61,7 @@
 #include "ndpi_util.h"
 
 int saveProtoCnt=3;
-char* saveProto={"QQ","YAHOO","SSH"};
+char* saveProto[]={"QQ","Yahoo","SSH"};
 /** Client parameters **/
 static char *_pcap_file[MAX_NUM_READER_THREADS]; /**< Ingress pcap file/interfaces */
 static FILE *playlist_fp[MAX_NUM_READER_THREADS] = { NULL }; /**< Ingress playlist */
@@ -3211,8 +3211,9 @@ void extractProtoAndSave(FILE* fp,char* msg)
   int i=0;
   int len=0;
   int flag=0;
-  char file[30];
+  char file[60]={0};
   FILE* fp2;
+  fseek(fp, 0, SEEK_SET);
   while(fgets(line,200,fp)!=NULL)
   {
     //printf("%s msg=%s\n",line,msg);
@@ -3248,8 +3249,11 @@ void extractProtoAndSave(FILE* fp,char* msg)
 	}
   }
 
-  strcpy(file,msg);
+  strcat(file,"/var/log/dpi/");
+  strcat(file,msg);
+ // strcpy(file,msg);
   strcat(file,".txt");
+  printf("file is %s\n",file);
   fp2=fopen(file,"a+");
   if(fp2==NULL)
   {
@@ -3336,10 +3340,11 @@ int orginal_main(int argc, char **argv) {
 	}
 	else
 	{
-	 // for(i=0;i<saveProtoCnt;i++)
-	  //{
-        extractProtoAndSave(results_file,"QQ");
-	  //}
+	  for(i=0;i<saveProtoCnt;i++)
+	  {
+	    printf("i=%d s=%s\n",i,saveProto[i]);
+        extractProtoAndSave(results_file,saveProto[i]);
+	  }
 	  fclose(results_file);
 	}
     

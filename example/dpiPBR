@@ -1,0 +1,45 @@
+#! /bin/bash
+#source /opt/vyatta/etc/functions/script-template
+echo "This script need to point out four param"
+echo "First Param is Proto need to process, such as QQ...."
+echo "Second Param is NIC which is use to detect protocol, such as eth0.."
+echo "Third Param is LAN newwork ip,such as 192.168.0,0.."
+echo "Fourth Param is PBR path to choose,such as 210.220.10.109.."
+echo $#
+if [ $# != 4 ]
+then
+echo "Param need 4 param, Plz input again"
+exit 0
+fi
+
+IPList=$1.txt;
+echo $IPList;
+Home=/home/vyos
+source /opt/vyatta/etc/functions/script-template
+if [ `pwd` != $Home ]
+then
+echo `pwd`
+run show interfaces
+#run exit
+run configure
+run del policy route SRC-DPI
+run set policy route SRC-DPI
+
+echo `pwd`
+else
+run exit
+run configure
+run del policy route SRC-DPI
+run set policy route SRC-DPI
+echo `pwd`
+fi
+
+while read line1
+do 
+  echo $line1
+  fstr=${$line1#* }
+  echo $fstr
+done < $IPList;
+echo $1
+echo $2
+echo $3
