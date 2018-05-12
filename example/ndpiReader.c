@@ -60,8 +60,13 @@
 
 #include "ndpi_util.h"
 
-int saveProtoCnt=3;
-char* saveProto[]={"QQ","Yahoo","SSH"};
+int saveProtoCnt=32;
+char* saveProto[]={"QQ","Yahoo","SSH","MySQL","Hotmail","VMware",
+	               "BitTorrent","AVI","Flash","MPEG","QuickTime",
+	                "RTSP","PPStream","QQLive","Thunder","Telnet",
+	                "SCTP","OSPF","EGP","Facebook","Twitter","YouTube",
+	                "NetFlow","OpenVPN","Oracle","Amazon","eBay","CNN",
+	                "QuickPlay","Sina","LISP","AmazonVideo"};
 /** Client parameters **/
 static char *_pcap_file[MAX_NUM_READER_THREADS]; /**< Ingress pcap file/interfaces */
 static FILE *playlist_fp[MAX_NUM_READER_THREADS] = { NULL }; /**< Ingress playlist */
@@ -3212,12 +3217,20 @@ void extractProtoAndSave(FILE* fp,char* msg)
   int len=0;
   int flag=0;
   char file[60]={0};
+  char httpMsg[50];
+  char sslMsg[50];
+  strcpy(httpMsg,"HTTP.");
+  strcat(httpMsg,msg);
+  
+  strcpy(sslMsg,"SSL.");
+  strcat(sslMsg,msg);
   FILE* fp2;
   fseek(fp, 0, SEEK_SET);
+  printf("httpMsg=%s,sslMsg=%s\n",httpMsg,sslMsg);
   while(fgets(line,200,fp)!=NULL)
   {
     //printf("%s msg=%s\n",line,msg);
-    if(strstr(line,msg)!=NULL)
+    if(strstr(line,httpMsg)!=NULL||strstr(line,sslMsg)!=NULL)
     {
       char* pos=strstr(line," ");
 	  char* spos=strstr(pos+1," ");
