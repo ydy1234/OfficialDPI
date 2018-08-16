@@ -7,6 +7,8 @@ ndpi_flow_free
 ndpi_guess_undetected_protocol
 ndpi_tfind
 ndpi_tsearch
+ndpi_flow_malloc
+
 ndpi_set_protocol_detection_bitmask2
 ndpi_detection_get_sizeof_ndpi_id_struct
 ndpi_detection_get_sizeof_ndpi_flow_struct
