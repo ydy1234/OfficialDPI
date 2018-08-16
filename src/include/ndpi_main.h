@@ -34,6 +34,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+  void * ndpi_flow_malloc(size_t size) ;
 
   void *ndpi_tdelete(const void * __restrict, void ** __restrict,
 		     int (*)(const void *, const void *));

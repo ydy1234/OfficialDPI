@@ -3238,11 +3238,26 @@ void extractProtoAndSave(FILE* fp,char* msg)
   char file[60]={0};
   char httpMsg[50];
   char sslMsg[50];
-  strcpy(httpMsg,"HTTP.");
-  strcat(httpMsg,msg);
+  if(strstr(msg, "FTP")!=NULL)
+  {
+      strcpy(httpMsg, "FTP");
+	  strcpy(sslMsg, "FTP");  
+      printf("httpMsg=%s,sslmsg=%\n",httpMsg,sslMsg);
+  }
+  else if(strstr(msg, "HTTP")!=NULL)
+  {
+      strcpy(httpMsg, "HTTP");
+	  strcpy(sslMsg, "HTTP");  
+      printf("httpMsg=%s,sslmsg=%\n",httpMsg,sslMsg);
+  }
+  else
+  {
+      strcpy(httpMsg,"HTTP.");
+      strcat(httpMsg,msg);
   
-  strcpy(sslMsg,"SSL.");
-  strcat(sslMsg,msg);
+      strcpy(sslMsg,"SSL.");
+      strcat(sslMsg,msg);
+  }
   FILE* fp2;
   fseek(fp, 0, SEEK_SET);
   printf("httpMsg=%s,sslMsg=%s\n",httpMsg,sslMsg);
@@ -3314,8 +3329,13 @@ void extractProtoAndSave(FILE* fp,char* msg)
   fclose(fp2);
 }
 /* *********************************************** */
-
-
+//
+int main(){
+	//1.初始化
+	ndpi_info_mod = ndpi_init_detection_module();
+    if (ndpi_info_mod == NULL) return -1;
+	
+}
 /**
    @brief MAIN FUNCTION
 **/
