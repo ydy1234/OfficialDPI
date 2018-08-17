@@ -3329,13 +3329,7 @@ void extractProtoAndSave(FILE* fp,char* msg)
   fclose(fp2);
 }
 /* *********************************************** */
-//
-int main(){
-	//1.初始化
-	ndpi_info_mod = ndpi_init_detection_module();
-    if (ndpi_info_mod == NULL) return -1;
-	
-}
+
 /**
    @brief MAIN FUNCTION
 **/
