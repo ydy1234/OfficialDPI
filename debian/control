@@ -1,0 +1,12 @@
+Source: vcmyos-dpilib
+Section: contrib/net
+Priority: extra
+Maintainer: vcmyOS Maintainers <maintainers@vcmy.com>
+Build-Depends:
+Standards-Version: 3.8.4
+
+Package: vcmyos-dpilib
+Architecture: any
+Depends:
+Description: Is a DPI library in C intended for 
+ Packets checking.
