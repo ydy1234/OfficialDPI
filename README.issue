@@ -1,0 +1,7 @@
+1.Packaging deb issue 
+  Makefile:372: recipe for target 'aclocal.m4' failed
+  Fixed method:
+  autoreconf -vfi
+2.Packaging method
+  debuild -b in ****/OfficialDPI
+
